@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +30,10 @@ public class Note {
 	
 	@Column
 	private Boolean isPin = false;
+	
+	@Lob
+	@Column
+	private byte[]image;
 
 	public int getId() {
 		return id;
@@ -77,5 +82,15 @@ public class Note {
 	public void setIsPin(Boolean isPin) {
 		this.isPin = isPin;
 	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	
 
 }

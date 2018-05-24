@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: fundoonote
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: bridgeit
+Implementation-Vendor-Id: com.fundoonotes
+Build-Jdk: 1.8.0_71
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/fundoonote
+Created-By: Maven Integration for Eclipse
+

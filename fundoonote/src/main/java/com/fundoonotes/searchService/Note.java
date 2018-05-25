@@ -2,14 +2,18 @@ package com.fundoonotes.searchService;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 @Document(indexName="search",type="notes")
+
+
 public class Note {
-	
 	
 	@Id
 	private int id;
+	@Field
 	private String title;
+	@Field
 	private String description;
 
 	public Note() {

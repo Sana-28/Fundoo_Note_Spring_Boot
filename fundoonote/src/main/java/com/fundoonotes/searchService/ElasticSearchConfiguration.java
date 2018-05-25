@@ -3,12 +3,12 @@
  */
 package com.fundoonotes.searchService;
 
-import java.net.InetAddress;
+import java.net.UnknownHostException;
 
+import org.apache.http.HttpHost;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,18 +36,22 @@ public class ElasticSearchConfiguration {
 	private String EsClusterName;
 
 	@Bean
-	public Client client() throws Exception {
-
-		//Settings esSettings = Settings.builder().put("cluster.name", EsClusterName).build();
-		return new PreBuiltTransportClient(Settings.EMPTY).addTransportAddress(
-				new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
-//		return TransportClient.builder().settings(esSettings).build()
-//				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
+	public RestHighLevelClient restClient() throws UnknownHostException {
+	RestHighLevelClient client = null;
+	client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+	return client;
 	}
+	/*@Bean
+    public Client client() throws Exception {
+        @SuppressWarnings("resource")
+		TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
+        return client;
+    }*/
 
 	@Bean
 	public ElasticsearchOperations elasticsearchTemplate() throws Exception {
-		return new ElasticsearchTemplate(client());
+		return new ElasticsearchTemplate((Client) restClient());
 	}
 
 }

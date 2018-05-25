@@ -13,34 +13,36 @@ import javax.persistence.Table;
 import com.fundoonotes.userservice.User;
 
 @Entity
-@Table
+@Table(name="Label")
 public class Label {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private int id;
+	private int labeld;
 	
 	@Column
-	private int name;
+	private String name;
 
 	@ManyToOne
 	@JoinColumn(name="userId")
 	private User user;
 	
-	public int getId() {
-		return id;
+	public int getLabeld() {
+		return labeld;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setLabeld(int labeld) {
+		this.labeld = labeld;
 	}
 
-	public int getName() {
+	
+
+	public String getName() {
 		return name;
 	}
 
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

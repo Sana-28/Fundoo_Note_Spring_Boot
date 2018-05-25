@@ -1,6 +1,5 @@
 package com.fundoonotes.noteservice;
 
-import java.util.List;
 
 public class NoteResDto {
 
@@ -27,7 +26,6 @@ private int id;
 		this.isPin=note.getIsPin();
 		this.isArchive=note.getIsArchive();
 		this.image = note.getImage();
-
 	}
 
 	public int getId() {

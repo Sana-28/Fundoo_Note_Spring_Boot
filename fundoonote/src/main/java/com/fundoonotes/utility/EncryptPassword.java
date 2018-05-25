@@ -1,12 +1,22 @@
 package com.fundoonotes.utility;
+<<<<<<< HEAD
 
+=======
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.stereotype.Component;
+<<<<<<< HEAD
 
 @Component
 public class EncryptPassword {
+=======
+@Component
+public class EncryptPassword {
+	
+
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 	public static String getMD5EncryptedValue(String password) {
         final byte[] defaultBytes = password.getBytes();
         try {
@@ -32,3 +42,7 @@ public class EncryptPassword {
        
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c

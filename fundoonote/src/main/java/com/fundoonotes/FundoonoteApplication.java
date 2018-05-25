@@ -7,7 +7,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {
+<<<<<<< HEAD
 	    SecurityAutoConfiguration.class})
+=======
+		   SecurityAutoConfiguration.class})
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 public class FundoonoteApplication {
 
 	public static void main(String[] args) {

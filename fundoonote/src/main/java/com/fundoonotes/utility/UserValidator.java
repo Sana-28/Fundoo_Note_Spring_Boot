@@ -5,12 +5,21 @@ import java.util.regex.Pattern;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+<<<<<<< HEAD
 
 import com.fundoonotes.userservice.User;
 import com.fundoonotes.userservice.UserDto;
 
 @Component
 public class UserValidator {
+=======
+import org.springframework.validation.Validator;
+import com.fundoonotes.userservice.User;
+import com.fundoonotes.userservice.UserDto;
+@Component
+public class UserValidator implements Validator {
+
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 	public boolean supports(Class<?> clazz) {
 
 		return User.class.equals(clazz);
@@ -42,7 +51,11 @@ public class UserValidator {
 		if (!(pattern3.matcher(userDto.getMobileNumber()).matches())) {
 			err.rejectValue("mobileNumber", "user mobileNumber empty");
 		}
+<<<<<<< HEAD
 
 	}
 
+=======
+	}
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 }

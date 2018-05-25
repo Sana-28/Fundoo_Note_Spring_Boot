@@ -12,19 +12,28 @@
 *.tar.gz
 *.rar
 
+<<<<<<< HEAD
 *.mvn
+=======
+.mvn/**
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 *.mvn/wrapper
 
 **/target
 */target/**
 **/.settings
+<<<<<<< HEAD
 **/application.properties
+=======
+
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 =======
 /.metadata/
 /.recommenders/
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
@@ -34,3 +43,12 @@ hs_err_pid*
 
 
 */.mvn/
+=======
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+/.mvn/wrapper/
+
+#Avoid property file
+**/application.properties
+>>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c

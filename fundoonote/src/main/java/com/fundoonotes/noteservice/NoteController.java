@@ -1,5 +1,7 @@
 package com.fundoonotes.noteservice;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,12 +46,12 @@ public class NoteController {
 		return new ResponseEntity<String>("Note deleted succesfully", HttpStatus.OK);
 	}
 
+	@RequestMapping(value="getnotes", method = RequestMethod.GET)
+	public ResponseEntity<?> getNotes(@RequestHeader("Authorization") String token){
 
-	@RequestMapping(value="getnotes/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getNotes(@PathVariable int id){
-
-		Note note = noteService.getNotes(id);
-		return new ResponseEntity<Note>(note, HttpStatus.OK);
+		int id = TokenUtils.verifyToken(token);
+		List<NoteResDto> note =  noteService.getNotes(id);
+		return new ResponseEntity<List>(note, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "uploadimage",  method = RequestMethod.POST, headers= {"content-type=multipart/*"})
@@ -57,5 +60,12 @@ public class NoteController {
 		System.out.println("file name -- "+fileUpload.getOriginalFilename());
 		noteService.saveImage(fileUpload, noteId);
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "deleteimage/{noteId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteImage(@PathVariable("noteId") int noteId){
+		System.out.println("noteId is.. "+noteId);
+		noteService.deleteImage(noteId);
+		return null;
 	}
 }

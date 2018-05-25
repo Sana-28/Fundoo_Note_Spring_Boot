@@ -1,7 +1,8 @@
 package com.fundoonotes.noteservice;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,17 +41,20 @@ public class NoteServiceImpl implements INoteService {
 	
 	}
 	@Override
-	public Note getNotes(int id) {
+	public List<NoteResDto> getNotes(int id) {
 	
-		 Note note = noteRepository.getOne(id);
-		 
-		System.out.println("Note is :=> "+note.getDescription()+" "+note.getTitle());
-		return note;
+		User user = userService.getUserById(id);
+		List<Note> notes = noteRepository.findNotesByUserId(user);
+		 List<NoteResDto> list = new ArrayList<>();
+		for(Note note :notes) {
+			NoteResDto obj = new NoteResDto(note);
+			list.add(obj);
+		}		
+		return list;
 	}
 
 	@Override
-	public void saveImage(MultipartFile fileUpload, int noteId) throws IOException {
-		
+	public void saveImage(MultipartFile fileUpload, int noteId) throws IOException {	
 		Note note = noteRepository.getOne(noteId);
 		note.setImage(fileUpload.getBytes());
 		noteRepository.save(note);
@@ -60,6 +64,13 @@ public class NoteServiceImpl implements INoteService {
 	public Note getNoteByNoteId(int id) {
 		
 		 return noteRepository.getOne(id);
+	}
+
+	@Override
+	public void deleteImage(int noteId) {	
+		Note note = noteRepository.getOne(noteId);
+		note.setImage(null);
+		noteRepository.save(note);
 	}
 
 }

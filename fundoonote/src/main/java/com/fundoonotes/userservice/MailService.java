@@ -1,21 +1,14 @@
 package com.fundoonotes.userservice;
-<<<<<<< HEAD
 
 import org.springframework.beans.factory.annotation.Autowired;
-=======
 import org.springframework.beans.factory.annotation.Autowired;
-
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
-=======
 import com.fundoonotes.userservice.EmailProperties;
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 @Component
 public class MailService {
 

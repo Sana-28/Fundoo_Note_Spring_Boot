@@ -8,15 +8,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-<<<<<<< HEAD
 
 @Component
 public class TokenUtils {
-=======
-@Component
-public class TokenUtils {
-
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 	private static final String key = "QwErTyUiOp";
 
 	public static String generateToken(int id) {
@@ -37,8 +31,4 @@ public class TokenUtils {
 		id = Integer.parseInt(claims.getId());
 		return id;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 }

@@ -1,16 +1,10 @@
 package com.fundoonotes.userservice;
 
 import java.io.Serializable;
-<<<<<<< HEAD
-=======
-
-
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-<<<<<<< HEAD
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -21,90 +15,32 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class User implements Serializable {
 private static final long serialVersionUID = 1L;
-=======
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@Entity
-@Table(name = "User")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class User implements Serializable  {
-
-	private static final long serialVersionUID = 1L;
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 	
 	@Id
 	@GenericGenerator(name = "user", strategy = "increment")
 	@GeneratedValue(generator = "user")
 	private int userId;
-<<<<<<< HEAD
     private String name;
-=======
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	private String name;
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 	private String email;
 	private String password;
 	private String mobileNumber;
 	private boolean isActive;
-<<<<<<< HEAD
 	private String randomId;
 	
 	public User() {
 
 	}
-=======
-	public User() {
-
-	}
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
-	private String randomID;
-	
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 	public User(UserDto userDto) {
 		this.setName(userDto.getName());
 		this.setEmail(userDto.getEmail());
 		this.setMobileNumber(userDto.getMobileNumber());
 	}
-<<<<<<< HEAD
 	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-=======
-	public String getRandomID() {
-		return randomID;
-	}
-
-	public void setRandomID(String randomID) {
-		this.randomID = randomID;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-	
-	
-	
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 	public String getName() {
 		return name;
 	}
@@ -123,7 +59,6 @@ public class User implements Serializable  {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-<<<<<<< HEAD
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
@@ -143,11 +78,4 @@ public class User implements Serializable  {
 		this.randomId = randomId;
 	}
 	
-	
-	
-=======
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
->>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
 }

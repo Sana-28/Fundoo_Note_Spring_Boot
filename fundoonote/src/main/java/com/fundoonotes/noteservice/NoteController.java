@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fundoonotes.utility.TokenUtils;
+
 
 @RestController
 public class NoteController {
@@ -21,9 +23,10 @@ public class NoteController {
 	INoteService noteService;
 
 	@RequestMapping(value="createnote", method = RequestMethod.POST)
-	ResponseEntity<Note> createNote(@RequestBody Note note){
-
-		noteService.createNote(note);
+	ResponseEntity<Note> createNote(@RequestBody Note note, HttpServletRequest request){
+		
+		int id = TokenUtils.verifyToken(request.getHeader("Authorization"));
+		noteService.createNote(note, id);
 		return new ResponseEntity<Note>(note ,HttpStatus.OK);	
 	}
 
@@ -41,17 +44,11 @@ public class NoteController {
 	}
 
 
-	@RequestMapping(value="/getNotes{id}", method = RequestMethod.GET)
+	@RequestMapping(value="getnotes/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getNotes(@PathVariable int id){
 
-
-		try {
-
-		} catch (Exception e) {
-
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-		return null;
+		Note note = noteService.getNotes(id);
+		return new ResponseEntity<Note>(note, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "uploadimage",  method = RequestMethod.POST, headers= {"content-type=multipart/*"})

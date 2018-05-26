@@ -7,5 +7,4 @@ public interface UserService {
 	  int userActivation(String randomId);
 	  public boolean forgetPassword(String email, String url);
 	  public int resetPassword(UserDto userDto);
-
 }

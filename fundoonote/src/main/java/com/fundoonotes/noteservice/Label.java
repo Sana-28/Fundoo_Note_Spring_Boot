@@ -36,8 +36,6 @@ public class Label {
 		this.labeld = labeld;
 	}
 
-	
-
 	public String getName() {
 		return name;
 	}

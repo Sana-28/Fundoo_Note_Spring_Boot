@@ -1,9 +1,12 @@
 package com.fundoonotes.noteservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.fundoonotes.userservice.User;
 import com.fundoonotes.userservice.UserDAO;
 
+@Service
 public class CollaboratorServiceImpl implements ICollaboratorService {
 
 	@Autowired
@@ -28,6 +31,10 @@ public class CollaboratorServiceImpl implements ICollaboratorService {
 	@Override
 	public void removeCollaborator(String sharedUseremail, int noteId) {
 		
+		User user = userDao.findByEmail(sharedUseremail);
+		Note note = noteService.getNoteByNoteId(noteId);
+		collaboratorRepository.removeCollaboratorFromNote(user, note);
+	
 		
 	}
 

@@ -15,4 +15,5 @@ public interface LabelRepository extends JpaRepository<Label, Integer> {
 	@Query("from Label where user = :user")
 	List<Label> findLabelsByUserId(@Param("user") User user);
 	
+	
 }

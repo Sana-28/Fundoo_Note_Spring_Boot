@@ -56,7 +56,7 @@ public class NoteServiceImpl implements INoteService {
 	@Override
 	public void saveImage(MultipartFile fileUpload, int noteId) throws IOException {	
 		Note note = noteRepository.getOne(noteId);
-		note.setImage(fileUpload.getBytes());
+		note.setnoteImage(fileUpload.getBytes());
 		noteRepository.save(note);
 	}
 
@@ -69,7 +69,7 @@ public class NoteServiceImpl implements INoteService {
 	@Override
 	public void deleteImage(int noteId) {	
 		Note note = noteRepository.getOne(noteId);
-		note.setImage(null);
+		note.setnoteImage(null);
 		noteRepository.save(note);
 	}
 

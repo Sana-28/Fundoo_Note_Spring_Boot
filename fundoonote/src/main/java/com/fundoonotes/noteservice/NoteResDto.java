@@ -1,40 +1,39 @@
 package com.fundoonotes.noteservice;
 
-
 public class NoteResDto {
 
-	
-private int id;
-	
+	private int noteId;
+
 	private String title;
-	
+
 	private String description;
-	
-	private Boolean isTrash =false;
-	
-	private Boolean isArchive =false;
-	
+
+	private Boolean inTrash = false;
+
+	private Boolean isArchive = false;
+
 	private Boolean isPin = false;
-	
-	private byte[]image;
+
+	private byte[] image;
 
 	public NoteResDto(Note note) {
-		this.id = note.getId();
-		this.title=note.getTitle();
-		this.description=note.getDescription();
-		this.isTrash=note.getIsTrash();
-		this.isPin=note.getIsPin();
-		this.isArchive=note.getIsArchive();
-		this.image = note.getImage();
+		this.noteId = note.getNoteId();
+		this.title = note.getTitle();
+		this.description = note.getDescription();
+		this.inTrash = note.getInTrash();
+		this.isPin = note.getIsPin();
+		this.isArchive = note.getIsArchive();
+		this.image = note.getnoteImage();
 	}
 
-	public int getId() {
-		return id;
+	public int getNoteId() {
+		return noteId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setNoteId(int noteId) {
+		this.noteId = noteId;
 	}
+
 
 	public String getTitle() {
 		return title;
@@ -52,12 +51,12 @@ private int id;
 		this.description = description;
 	}
 
-	public Boolean getIsTrash() {
-		return isTrash;
+	public Boolean getInTrash() {
+		return inTrash;
 	}
 
-	public void setIsTrash(Boolean isTrash) {
-		this.isTrash = isTrash;
+	public void setInTrash(Boolean inTrash) {
+		this.inTrash = inTrash;
 	}
 
 	public Boolean getIsArchive() {
@@ -76,15 +75,12 @@ private int id;
 		this.isPin = isPin;
 	}
 
-	public byte[] getImage() {
+	public byte[] getnoteImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setnoteImage(byte[] image) {
 		this.image = image;
 	}
-	
-	
-	
-}
 
+}

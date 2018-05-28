@@ -29,7 +29,10 @@ public class NoteServiceImpl implements INoteService {
 	}
 
 	@Override
-	public int updateNote(Note note) {
+	public int updateNote(Note note, int userId) {
+		
+		User user = userService.getUserById(userId);
+		note.setUser(user);
 		noteRepository.save(note);
 		return 0;
 	}

@@ -30,6 +30,7 @@ public class LabelServiceImpl implements ILabelService {
 	@Override
 	public void deleteLabel(int id) {
 		
+		labelRepository.deleteById(id);
 		
 	}
 

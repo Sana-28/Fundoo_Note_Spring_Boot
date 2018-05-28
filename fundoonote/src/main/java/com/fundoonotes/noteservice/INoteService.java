@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface INoteService {
 
 	int createNote(Note note, int id);
-	int updateNote(Note note);
+	int updateNote(Note note, int userId);
 	void deleteNote(int id);
 	List<NoteResDto> getNotes(int id);	
 	void saveImage(MultipartFile fileUpload, int noteId) throws IOException;

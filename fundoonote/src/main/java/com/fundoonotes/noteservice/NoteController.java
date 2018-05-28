@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fundoonotes.utility.TokenUtils;
 
-
 @RestController
 public class NoteController {
 
@@ -34,9 +33,10 @@ public class NoteController {
 	}
 
 	@RequestMapping(value="updatenote", method = RequestMethod.POST)
-	ResponseEntity<Note> updateNote(@RequestBody Note note){
+	ResponseEntity<Note> updateNote(@RequestBody Note note,@RequestHeader("Authorization") String token){
 
-		noteService.updateNote(note);
+		int userId = TokenUtils.verifyToken(token);
+		noteService.updateNote(note, userId);
 		return new ResponseEntity<Note>(note, HttpStatus.OK);
 	}
 
@@ -54,7 +54,7 @@ public class NoteController {
 		return new ResponseEntity<List>(note, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "uploadimage",  method = RequestMethod.POST, headers= {"content-type=multipart/*"})
+	@RequestMapping(value="uploadimage", method = RequestMethod.POST, headers= {"content-type=multipart/*"})
 	public ResponseEntity<String> uploadImage(HttpServletRequest request, @RequestParam("file") MultipartFile fileUpload, @RequestParam int noteId)
 			throws Exception {
 		System.out.println("file name -- "+fileUpload.getOriginalFilename());

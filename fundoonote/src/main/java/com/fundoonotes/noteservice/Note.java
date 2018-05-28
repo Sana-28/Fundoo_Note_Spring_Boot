@@ -42,6 +42,9 @@ public class Note {
 	@Column
 	private Date reminder;
 	
+	@Column
+	private String color;
+	
 	@Lob
 	@Column
 	private byte[]image;
@@ -123,4 +126,14 @@ public class Note {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	
 }

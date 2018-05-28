@@ -19,6 +19,8 @@ private int id;
 	
 	private Date reminder;
 	
+	private String color;
+	
 	private byte[]image;
 
 	public NoteResDto(Note note) {
@@ -30,6 +32,7 @@ private int id;
 		this.isArchive=note.getIsArchive();
 		this.reminder=note.getReminder();
 		this.image = note.getImage();
+		this.color=note.getColor();
 	}
 
 	public int getId() {
@@ -96,5 +99,15 @@ private int id;
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	
 }
 

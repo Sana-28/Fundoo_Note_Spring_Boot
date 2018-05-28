@@ -25,7 +25,7 @@ public class NoteController {
 	@Autowired
 	INoteService noteService;
 
-	@RequestMapping(value="createnote", method = RequestMethod.POST)
+	@RequestMapping(value="createnote", method = RequestMethod.PUT)
 	ResponseEntity<Note> createNote(@RequestBody Note note, HttpServletRequest request){
 		
 		int id = TokenUtils.verifyToken(request.getHeader("Authorization"));
@@ -33,7 +33,7 @@ public class NoteController {
 		return new ResponseEntity<Note>(note ,HttpStatus.OK);	
 	}
 
-	@RequestMapping(value="updatenote", method = RequestMethod.POST)
+	@RequestMapping(value="updatenote", method = RequestMethod.PUT)
 	ResponseEntity<Note> updateNote(@RequestBody Note note){
 
 		noteService.updateNote(note);
@@ -54,8 +54,8 @@ public class NoteController {
 		return new ResponseEntity<List>(note, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "uploadimage",  method = RequestMethod.POST, headers= {"content-type=multipart/*"})
-	public ResponseEntity<String> uploadImage(HttpServletRequest request, @RequestParam("file") MultipartFile fileUpload, @RequestParam int noteId)
+	@RequestMapping(value = "uploadNoteImage",  method = RequestMethod.POST)
+	public ResponseEntity<String> uploadImage(HttpServletRequest request, @RequestParam("image") MultipartFile fileUpload, @RequestParam int noteId)
 			throws Exception {
 		System.out.println("file name -- "+fileUpload.getOriginalFilename());
 		noteService.saveImage(fileUpload, noteId);

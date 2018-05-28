@@ -4,13 +4,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
-@Document(indexName="search",type="notes")
+//@Document(indexName="search",type="notes")
 
 
 public class Note {
 	
 	@Id
-	private int id;
+	private String id;
 	@Field
 	private String title;
 	@Field
@@ -19,19 +19,19 @@ public class Note {
 	public Note() {
 		
 	}
-	public Note(int id, String title, String description) {
+	public Note(String id, String title, String description) {
 		
 		this.id = id;
 		this.title = title;
 		this.description = description;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(String string) {
+		this.id = string;
 	}
 
 	public String getTitle() {

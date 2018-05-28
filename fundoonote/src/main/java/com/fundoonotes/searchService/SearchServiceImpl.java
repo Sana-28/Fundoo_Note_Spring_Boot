@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SearchServiceImpl implements ISearchService {
 
-	private ISearchRepository searchRepository;
+	private SearchRepository searchRepository;
 
-	public void setSearchRepository(ISearchRepository searchRepository) {
+	public void setSearchRepository(SearchRepository searchRepository) {
 		this.searchRepository = searchRepository;
 	}
 
 	@Override	
 	public void saveInfo(Note note) {
-		searchRepository.save(note);
+		searchRepository.insertNote(note);
 
 	}
 

@@ -3,7 +3,6 @@
  */
 package com.fundoonotes.searchService;
 
-import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +21,17 @@ public class SearchController {
 	/*@Autowired
 	 ISearchService elasticSearchRepository;*/
 	
-	
+	private SearchRepository searchRepository;
 	@Autowired
 	private ISearchService searchService;
 	
+	 public SearchController(ISearchService searchService) {
+		 this.searchService=searchService;
+		// TODO Auto-generated constructor stub
+	}
 	 
-	 
-	@Autowired
-	private TransportClient client;
+/*	@Autowired
+	private TransportClient client;*/
 
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Note note) {

@@ -14,44 +14,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fundoonotes.userservice.User;
 
 @Entity
-@Table(name="Note")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "Note")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Note {
-	
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private int id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int noteId;
+
 	@Column
 	private String title;
-	
+
 	@Column
 	private String description;
-	
+
 	@Column
-	private Boolean isTrash =false;
-	
+	private Boolean inTrash = false;
+
 	@Column
-	private Boolean isArchive =false;
-	
+	private Boolean isArchive = false;
+
 	@Column
 	private Boolean isPin = false;
-	
+
 	@Lob
 	@Column
-	private byte[]image;
-	
+	private byte[] noteImage;
+
 	@ManyToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name = "userId")
 	private User user;
 
-
-	public int getId() {
-		return id;
+	public int getNoteId() {
+		return noteId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setNoteId(int noteId) {
+		this.noteId = noteId;
 	}
 
 	public String getTitle() {
@@ -70,12 +69,12 @@ public class Note {
 		this.description = description;
 	}
 
-	public Boolean getIsTrash() {
-		return isTrash;
+	public Boolean getInTrash() {
+		return inTrash;
 	}
 
-	public void setIsTrash(Boolean isTrash) {
-		this.isTrash = isTrash;
+	public void setInTrash(Boolean inTrash) {
+		this.inTrash = inTrash;
 	}
 
 	public Boolean getIsArchive() {
@@ -94,12 +93,12 @@ public class Note {
 		this.isPin = isPin;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public byte[] getnoteImage() {
+		return noteImage;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setnoteImage(byte[] image) {
+		this.noteImage = noteImage;
 	}
 
 	public User getUser() {
@@ -109,7 +108,5 @@ public class Note {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
 
 }

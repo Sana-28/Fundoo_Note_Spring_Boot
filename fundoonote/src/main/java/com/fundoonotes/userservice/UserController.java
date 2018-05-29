@@ -115,7 +115,7 @@ public class UserController {
 	}
 	
 	//forgot password
-	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
 	public ResponseEntity<CustomResponse> forgotPassword(@RequestBody UserDto userDto, HttpServletRequest request) {
 		CustomResponse customRes = new CustomResponse();
 		try {
@@ -136,26 +136,6 @@ public class UserController {
 		}
 	}
 	
-	//reset password--old
-	/*@RequestMapping(value = "/resetpassword/{jwtToken}", method = RequestMethod.POST)
-	public ResponseEntity<CustomResponse> resetPassword(@RequestBody UserDto userDto,
-			@PathVariable("jwtToken") String jwtToken) {
-
-		CustomResponse customRes = new CustomResponse();
-		int id = TokenUtils.verifyToken(jwtToken);
-		User user = userService.getUserById(id);
-		userDto.setEmail(user.getEmail());
-
-		if (userService.resetPassword(userDto)==1) {
-			customRes.setMessage("Reset Password Sucessfully........");
-			customRes.setStatusCode(100);
-			return new ResponseEntity<CustomResponse>(customRes, HttpStatus.OK);
-
-		} else {
-			customRes.setMessage("Password Not Updated.......");
-			return new ResponseEntity<CustomResponse>(customRes, HttpStatus.BAD_REQUEST);
-		}
-	}*/
 	//reset password..new with front end
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	public ResponseEntity<CustomResponse> resetPassword(@RequestBody UserDto userDto,
@@ -200,5 +180,14 @@ public class UserController {
 		customRes.setStatusCode(409);
 		return new ResponseEntity<CustomResponse>(customRes, HttpStatus.CONFLICT);
 	}
+	
+	 @RequestMapping(value = "getuser", method = RequestMethod.GET)
+	   public ResponseEntity<User> getUser(HttpServletRequest request)
+	   {
+	      int userId = TokenUtils.verifyToken(request.getHeader("Authorization"));
+	      System.out.println(userId);
+	      User user = userService.getUserById(userId);
+	      return new ResponseEntity<User>(user, HttpStatus.OK);
+	   }
 	
 }

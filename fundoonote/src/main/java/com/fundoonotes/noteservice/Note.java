@@ -1,5 +1,7 @@
 package com.fundoonotes.noteservice;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +39,12 @@ public class Note {
 	@Column
 	private Boolean isPin = false;
 
+	@Column
+	private Date reminder;
+	
+	@Column
+	private String color;
+	
 	@Lob
 	@Column
 	private byte[] noteImage;
@@ -92,6 +100,15 @@ public class Note {
 	public void setIsPin(Boolean isPin) {
 		this.isPin = isPin;
 	}
+	
+
+	public Date getReminder() {
+		return reminder;
+	}
+
+	public void setReminder(Date reminder) {
+		this.reminder = reminder;
+	}
 
 	public byte[] getnoteImage() {
 		return noteImage;
@@ -109,4 +126,11 @@ public class Note {
 		this.user = user;
 	}
 
-}
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	}

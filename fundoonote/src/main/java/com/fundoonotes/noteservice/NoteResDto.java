@@ -1,5 +1,8 @@
 package com.fundoonotes.noteservice;
 
+
+import java.util.Date;
+
 public class NoteResDto {
 
 	private int noteId;
@@ -13,17 +16,23 @@ public class NoteResDto {
 	private Boolean isArchive = false;
 
 	private Boolean isPin = false;
-
-	private byte[] image;
+	
+	private Date reminder;
+	
+	private String color;
+	
+	private byte[]image;
 
 	public NoteResDto(Note note) {
 		this.noteId = note.getNoteId();
-		this.title = note.getTitle();
-		this.description = note.getDescription();
+		this.title=note.getTitle();
+		this.description=note.getDescription();
 		this.inTrash = note.getInTrash();
-		this.isPin = note.getIsPin();
-		this.isArchive = note.getIsArchive();
+		this.isPin=note.getIsPin();
+		this.isArchive=note.getIsArchive();
+		this.reminder=note.getReminder();
 		this.image = note.getnoteImage();
+		this.color=note.getColor();
 	}
 
 	public int getNoteId() {
@@ -74,13 +83,29 @@ public class NoteResDto {
 	public void setIsPin(Boolean isPin) {
 		this.isPin = isPin;
 	}
+	
+	public Date getReminder() {
+		return reminder;
+	}
 
-	public byte[] getnoteImage() {
+	public void setReminder(Date reminder) {
+		this.reminder = reminder;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setnoteImage(byte[] image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
-
+	
 }

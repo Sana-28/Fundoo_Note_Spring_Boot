@@ -26,6 +26,8 @@ private static final long serialVersionUID = 1L;
 	private String mobileNumber;
 	private boolean isActive;
 	private String randomId;
+	private String role;
+	
 	
 	public User() {
 
@@ -34,6 +36,7 @@ private static final long serialVersionUID = 1L;
 		this.setName(userDto.getName());
 		this.setEmail(userDto.getEmail());
 		this.setMobileNumber(userDto.getMobileNumber());
+		this.setRole(userDto.getRole());
 	}
 	public int getUserId() {
 		return userId;
@@ -76,6 +79,13 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setRandomId(String randomId) {
 		this.randomId = randomId;
+	}
+
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

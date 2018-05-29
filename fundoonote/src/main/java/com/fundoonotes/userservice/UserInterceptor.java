@@ -1,17 +1,14 @@
-package com.fundoonotes.utility;
+package com.fundoonotes.userservice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fundoonotes.userservice.User;
-import com.fundoonotes.userservice.UserService;
+import com.fundoonotes.utility.TokenUtils;
 
-@Component
 public class UserInterceptor {
 	@Autowired
 	private UserService userService;

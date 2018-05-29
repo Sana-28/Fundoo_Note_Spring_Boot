@@ -30,14 +30,13 @@ private final String Type = "notes";
  		this.restHighLevelClient=restHighLevelClient;
  	}
  	public Note insertNote(Note note) {
- 		note.setId(UUID.randomUUID().toString());
+ 		//note.setId(UUID.randomUUID().toString());
  		Map dataMap=(Map) objectmapper.convertValue(note, Map.class);
  		IndexRequest indexRequest = new IndexRequest(INDEX, Type, note.getId()).source(dataMap);
  		try {
 			IndexResponse response = restHighLevelClient.index(indexRequest);
 		} catch (Exception e) {
 			e.getMessage();
-			// TODO: handle exception
 		}
  		return note;
  	}

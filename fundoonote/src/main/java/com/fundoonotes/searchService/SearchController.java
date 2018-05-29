@@ -27,7 +27,6 @@ public class SearchController {
 	
 	 public SearchController(ISearchService searchService) {
 		 this.searchService=searchService;
-		// TODO Auto-generated constructor stub
 	}
 	 
 /*	@Autowired
@@ -35,7 +34,6 @@ public class SearchController {
 
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Note note) {
-		System.out.println("***********Search controller***********");
 		searchService.saveInfo(note);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 

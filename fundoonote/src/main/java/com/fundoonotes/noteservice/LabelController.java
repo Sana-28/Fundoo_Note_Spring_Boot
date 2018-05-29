@@ -21,13 +21,13 @@ public class LabelController {
 	@Autowired
 	ILabelService labelService;
 	
-	@RequestMapping(value="createlabel", method = RequestMethod.POST)
-	public ResponseEntity<String> createLabel(@RequestBody Label label, HttpServletRequest request,
+	@RequestMapping(value="createlabel", method = RequestMethod.PUT)
+	public ResponseEntity<Label> createLabel(@RequestBody Label label, HttpServletRequest request,
 			@RequestHeader("Authorization") String token){
 
 		int userId = TokenUtils.verifyToken(token);
 		labelService.createLabel(label, userId);
-		return new ResponseEntity<>("label add", HttpStatus.OK);
+		return new ResponseEntity<Label>(label, HttpStatus.OK);
 
 	}
 	

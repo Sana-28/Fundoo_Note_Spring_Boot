@@ -31,21 +31,20 @@ public class UserController
 {
 
    private static final Logger logger = Logger.getLogger(UserController.class);
-   
+
    @Autowired
    private UserServiceImpl userService;
-   
+
    @Autowired
    private UserValidator userValidator;
-   
+
    @Value("${frontendUrl}")
    private String frontendUrl;
-   
+
    @Value("${frontEndHost}")
    private String frontEndHost;
 
-   // regisetr
-
+   // register
    @RequestMapping(value = "register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<?> registerUser(@Validated @RequestBody UserDto userDto, BindingResult bindingResult,
          HttpServletRequest request) throws Exception
@@ -142,7 +141,7 @@ public class UserController
    }
 
    // reset password..new with front end
-   @RequestMapping(value = "/resetpassword", method = RequestMethod.POST)
+   @RequestMapping(value = "/resetnewpassword", method = RequestMethod.POST)
    public ResponseEntity<CustomResponse> resetPassword(@RequestBody UserDto userDto,
          @RequestParam("jwtToken") String jwtToken)
    {
@@ -176,10 +175,11 @@ public class UserController
 
    }
 
- //loggeduser
+   // loggeduser
    @RequestMapping(value = "/loggeduser", method = RequestMethod.GET)
-   public ResponseEntity<?> getLoggeddUser(HttpServletRequest reuqest) {
-      int userId=TokenUtils.verifyToken(reuqest.getHeader("Authorization"));
+   public ResponseEntity<?> getLoggeddUser(HttpServletRequest reuqest)
+   {
+      int userId = TokenUtils.verifyToken(reuqest.getHeader("Authorization"));
       CustomResponse customRes = new CustomResponse();
       User user = userService.getUserById(userId);
       if (user != null) {
@@ -189,7 +189,7 @@ public class UserController
       customRes.setStatusCode(409);
       return new ResponseEntity<CustomResponse>(customRes, HttpStatus.CONFLICT);
    }
-   
+
    @RequestMapping(value = "getuser", method = RequestMethod.GET)
    public ResponseEntity<User> getUser(HttpServletRequest request)
    {

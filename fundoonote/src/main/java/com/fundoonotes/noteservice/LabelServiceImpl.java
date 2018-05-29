@@ -28,9 +28,9 @@ public class LabelServiceImpl implements ILabelService {
 	}
 
 	@Override
-	public void deleteLabel(int id) {
+	public void deleteLabel(int labelId) {
 		
-		labelRepository.deleteById(id);
+		labelRepository.deleteById(labelId);
 		
 	}
 
@@ -46,6 +46,14 @@ public class LabelServiceImpl implements ILabelService {
 			list.add(obj);
 		}
  		return list;
+	}
+
+	@Override
+	public void updateLabel(Label label, int userId) {
+		
+		User user = userService.getUserById(userId);
+		label.setUser(user);
+		labelRepository.save(label);		
 	}
 	
 	

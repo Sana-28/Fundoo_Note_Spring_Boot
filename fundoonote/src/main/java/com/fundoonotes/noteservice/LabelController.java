@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ public class LabelController {
 	@Autowired
 	ILabelService labelService;
 	
-	@RequestMapping(value="createlabel", method = RequestMethod.POST)
+	@RequestMapping(value="createlabel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createLabel(@RequestBody Label label, HttpServletRequest request,
 			@RequestHeader("Authorization") String token){
 
@@ -31,7 +33,7 @@ public class LabelController {
 
 	}
 	
-	@RequestMapping(value="getlabels", method = RequestMethod.GET)
+	@RequestMapping(value="getlabels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getLabels(HttpServletRequest request,
 			@RequestHeader("Authorization") String token){
 	
@@ -42,6 +44,29 @@ public class LabelController {
 		
 		return new ResponseEntity<List>(label, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="deletelabel/{labelId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteLabel(@PathVariable("labelId") int labelId,HttpServletRequest request){
+		
+		try {
+			labelService.deleteLabel(labelId);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+	}
 
+	@RequestMapping(value = "/updateLabel", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> updateLabel(@RequestBody Label label, HttpServletRequest request,
+			@RequestHeader("Authorization") String token) {
+		int userId = TokenUtils.verifyToken(token);
+		try {
+			labelService.updateLabel(label, userId);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+	}
 }
 

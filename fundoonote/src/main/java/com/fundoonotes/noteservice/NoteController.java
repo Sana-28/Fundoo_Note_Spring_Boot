@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class NoteController {
 	@Autowired
 	INoteService noteService;
 
-	@RequestMapping(value="createnote", method = RequestMethod.POST)
+	@RequestMapping(value="createnote", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	ResponseEntity<Note> createNote(@RequestBody Note note, HttpServletRequest request){
 		
 		int id = TokenUtils.verifyToken(request.getHeader("Authorization"));
@@ -32,7 +33,7 @@ public class NoteController {
 		return new ResponseEntity<Note>(note ,HttpStatus.OK);	
 	}
 
-	@RequestMapping(value="updatenote", method = RequestMethod.POST)
+	@RequestMapping(value="updatenote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	ResponseEntity<Note> updateNote(@RequestBody Note note,@RequestHeader("Authorization") String token){
 
 		int userId = TokenUtils.verifyToken(token);
@@ -46,7 +47,7 @@ public class NoteController {
 		return new ResponseEntity<String>("Note deleted succesfully", HttpStatus.OK);
 	}
 
-	@RequestMapping(value="getnotes", method = RequestMethod.GET)
+	@RequestMapping(value="getnotes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getNotes(@RequestHeader("Authorization") String token){
 
 		int id = TokenUtils.verifyToken(token);
@@ -59,13 +60,13 @@ public class NoteController {
 			throws Exception {
 		System.out.println("file name -- "+fileUpload.getOriginalFilename());
 		noteService.saveImage(fileUpload, noteId);
-		return new ResponseEntity<String>(HttpStatus.OK);
+		return new ResponseEntity<String>("Image updated...", HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "deleteimage/{noteId}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteImage(@PathVariable("noteId") int noteId){
 		System.out.println("noteId is.. "+noteId);
 		noteService.deleteImage(noteId);
-		return null;
+		return new ResponseEntity<String>("Image deleted...", HttpStatus.OK);
 	}
 }

@@ -22,7 +22,7 @@ public class Label {
 	private int labeld;
 	
 	@Column
-	private String name;
+	private String labelTitle;
 
 	@ManyToOne
 	@JoinColumn(name="userId")
@@ -36,12 +36,12 @@ public class Label {
 		this.labeld = labeld;
 	}
 
-	public String getName() {
-		return name;
+	public String getLabelTitle() {
+		return labelTitle;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLabelTitle(String labelTitle) {
+		this.labelTitle = labelTitle;
 	}
 
 	public User getUser() {

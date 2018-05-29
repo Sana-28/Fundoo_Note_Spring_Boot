@@ -18,11 +18,11 @@ public class CollaboratorServiceImpl implements ICollaboratorService {
 	CollaboratorRepository collaboratorRepository;
 	
 	@Override
-	public void createCollaborator(String sharedUseremail, int noteId, int userId) {
+	public void createCollaborator(CollaboratorDto collaboratorDto, int userId) {
 		
 		Collaborator collaborator =  new Collaborator();
-		collaborator.setNote(noteService.getNoteByNoteId(noteId));
-		collaborator.setSharedUser(userDao.findByEmail(sharedUseremail));
+		collaborator.setNote(noteService.getNoteByNoteId(collaboratorDto.getNoteId()));
+		collaborator.setSharedUser(userDao.findByEmail(collaboratorDto.getEmail()));
 		collaborator.setOwner(userDao.findById(userId).get());
 		collaboratorRepository.save(collaborator);	
 	}

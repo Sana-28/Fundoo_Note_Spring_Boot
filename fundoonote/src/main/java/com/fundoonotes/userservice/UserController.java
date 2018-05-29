@@ -34,6 +34,7 @@ public class UserController {
 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 	@Autowired
+	
 	private UserServiceImpl userService;
 	@Autowired
 	private UserValidator userValidator;
@@ -90,7 +91,6 @@ public class UserController {
 
 			throw new UnAuthorizedAccessUser();
 		}
-
 	}
 	
     //confirm registration

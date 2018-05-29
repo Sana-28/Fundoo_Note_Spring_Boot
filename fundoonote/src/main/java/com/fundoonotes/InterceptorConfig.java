@@ -1,4 +1,4 @@
-package com.fundoonotes;
+/*package com.fundoonotes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -16,3 +16,4 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
 		  
 	  }
 }
+*/

@@ -1,4 +1,4 @@
-package com.fundoonotes.utility;
+/*package com.fundoonotes.utility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,3 +58,4 @@ public class LoggedUserInterceptor implements HandlerInterceptor{
 
 	}
 }
+*/

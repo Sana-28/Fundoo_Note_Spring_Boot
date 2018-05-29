@@ -33,7 +33,8 @@ public class JmsConfig {
 	//create connection factory used for connection
 	@Bean
 	public ActiveMQConnectionFactory connectionFactory(){
-	    ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+	    ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616?wireFormat.cacheEnabled=false&wireFormat.tightEncodingEnabled=false");
+	 
 	    connectionFactory.setBrokerURL(BROKER_URL);
 	    connectionFactory.setPassword(BROKER_USERNAME);
 	    connectionFactory.setUserName(BROKER_PASSWORD);

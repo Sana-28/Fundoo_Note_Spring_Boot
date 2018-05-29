@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -177,10 +176,10 @@ public class UserController
 
    }
 
-   // loggeduser
-   @RequestMapping(value = "/user/loggeduser", method = RequestMethod.GET)
-   public ResponseEntity<?> getLoggeddUser(@RequestAttribute(name = "userId") int userId)
-   {
+ //loggeduser
+   @RequestMapping(value = "/loggeduser", method = RequestMethod.GET)
+   public ResponseEntity<?> getLoggeddUser(HttpServletRequest reuqest) {
+      int userId=TokenUtils.verifyToken(reuqest.getHeader("Authorization"));
       CustomResponse customRes = new CustomResponse();
       User user = userService.getUserById(userId);
       if (user != null) {
@@ -190,7 +189,7 @@ public class UserController
       customRes.setStatusCode(409);
       return new ResponseEntity<CustomResponse>(customRes, HttpStatus.CONFLICT);
    }
-
+   
    @RequestMapping(value = "getuser", method = RequestMethod.GET)
    public ResponseEntity<User> getUser(HttpServletRequest request)
    {
@@ -199,5 +198,4 @@ public class UserController
       User user = userService.getUserById(userId);
       return new ResponseEntity<User>(user, HttpStatus.OK);
    }
-
 }

@@ -2,15 +2,22 @@ package com.fundoonotes.userservice;
 
 import java.util.UUID;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fundoonotes.exception.EmailAlreadyExistsException;
+import com.fundoonotes.utility.Email;
 import com.fundoonotes.utility.TokenUtils;
 
 @Service
@@ -20,6 +27,9 @@ public class UserServiceImpl implements UserService {
 	private UserDAO userDao;// crudRespositry instance
 	@Autowired
 	public MailService mailService;
+	
+	@Autowired
+	JmsTemplate template;
 
 	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
@@ -28,7 +38,8 @@ public class UserServiceImpl implements UserService {
 
 		//User userFromDB = userDao.getUserByEmailId(userDto.getEmail());
 		User userFromDB = userDao.findByEmail(userDto.getEmail());
-		if (userFromDB != null) {
+		if (userFromDB != null) 
+		{
 			throw new EmailAlreadyExistsException();
 		}
 
@@ -45,9 +56,23 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);// jpa given
 
 		String to = user.getEmail();
+		int id =user.getUserId();
+		String token = TokenUtils.generateToken(id);
+		
 		String subject = "FundooPay registration verification";
-		String message = requestURL + "/RegistrationConfirm/" + randomId;
-		mailService.sendMail(to, subject, message);
+		String message = requestURL + "/activateaccount/" + token;
+		Email email=new Email();
+		      email.setTo(to);
+		      email.setSubject(subject);
+		      email.setMsg(message);
+		//mailService.sendMail(email);
+		template.send(new MessageCreator() {
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				ObjectMessage message = session.createObjectMessage(email);
+				return message;
+			}
+		});
 	}
 
 	@Override
@@ -85,9 +110,10 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public int userActivation(String randomId) {
+	public int userActivation(String token) {
 		//User user = userDao.getUserByUIID(randomId);
-		User user = userDao.findByRandomId(randomId);
+		int  userId=TokenUtils.verifyToken(token);
+		User user = userDao.findById(userId).get();
 		user.setActive(true);
 		//return userDao.activeUser(user.getEmail(), user.isActive());
 		userDao.save(user);
@@ -107,8 +133,13 @@ public class UserServiceImpl implements UserService {
 			String to = user.getEmail();
 			String subject = "Link to reset password";
 
-			String message = requestURL + "/resetpassword/" + jwtToken;
-			mailService.sendMail(to, subject, message);
+			String message = requestURL + "/resetpasswordlink/" + jwtToken;
+			Email email1=new Email();
+			 email1.setTo(to);
+		      email1.setSubject(subject);
+		      email1.setMsg(message);
+			
+			mailService.sendMail(email1);
 			flag = true;
 
 			//userDao.saveUsernameUid(emailID, randomId);

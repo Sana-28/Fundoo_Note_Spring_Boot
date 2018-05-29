@@ -1,13 +1,15 @@
 package com.fundoonotes.userservice;
 
 
+import java.io.IOException;
 import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fundoonotes.exception.UnAuthorizedAccessUser;
 import com.fundoonotes.utility.CustomResponse;
 import com.fundoonotes.utility.RegisterErrors;
@@ -35,8 +37,13 @@ public class UserController {
 	private UserServiceImpl userService;
 	@Autowired
 	private UserValidator userValidator;
+	@Value("${frontendUrl}")
+    private String frontendUrl;
+	@Value("${frontEndHost}")
+	private String frontEndHost;
 	
 	//regisetr
+	
 	@RequestMapping(value = "register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> registerUser(@Validated @RequestBody UserDto userDto, BindingResult bindingResult,
 			HttpServletRequest request) throws Exception {
@@ -65,6 +72,7 @@ public class UserController {
 		return new ResponseEntity<RegisterErrors>(response, HttpStatus.CREATED);
 
 	}
+	
 	//login
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> login(@RequestBody UserDto userDto, HttpServletResponse response) {
@@ -84,13 +92,15 @@ public class UserController {
 		}
 
 	}
+	
     //confirm registration
-	@RequestMapping(value = "/RegistrationConfirm/{randomId}", method = RequestMethod.POST)
-	public ResponseEntity<CustomResponse> isActiveUser(@PathVariable("randomId") String randomId) {
+	@RequestMapping(value = "/activateaccount/{token}", method = RequestMethod.POST)
+	public ResponseEntity<CustomResponse> isActiveUser(@PathVariable("token") String token,HttpServletResponse response) {
 
 		CustomResponse customRes = new CustomResponse();
 
-		if (userService.userActivation(randomId)==1) {
+		if (userService.userActivation(token)==1) {
+			// response.sendRedirect(frontendUrl);
 
 			customRes.setMessage("user activation done successfully");
 			customRes.setStatusCode(200);
@@ -103,6 +113,7 @@ public class UserController {
 		}
 
 	}
+	
 	//forgot password
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
 	public ResponseEntity<CustomResponse> forgotPassword(@RequestBody UserDto userDto, HttpServletRequest request) {
@@ -124,8 +135,9 @@ public class UserController {
 			return new ResponseEntity<CustomResponse>(HttpStatus.NO_CONTENT);
 		}
 	}
-	//reset password
-	@RequestMapping(value = "/resetpassword/{jwtToken}", method = RequestMethod.POST)
+	
+	//reset password--old
+	/*@RequestMapping(value = "/resetpassword/{jwtToken}", method = RequestMethod.POST)
 	public ResponseEntity<CustomResponse> resetPassword(@RequestBody UserDto userDto,
 			@PathVariable("jwtToken") String jwtToken) {
 
@@ -143,6 +155,37 @@ public class UserController {
 			customRes.setMessage("Password Not Updated.......");
 			return new ResponseEntity<CustomResponse>(customRes, HttpStatus.BAD_REQUEST);
 		}
+	}*/
+	//reset password..new with front end
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ResponseEntity<CustomResponse> resetPassword(@RequestBody UserDto userDto,
+			@RequestParam("jwtToken") String jwtToken) {
+
+		CustomResponse customRes = new CustomResponse();
+		int id = TokenUtils.verifyToken(jwtToken);
+		User user = userService.getUserById(id);
+		userDto.setEmail(user.getEmail());
+
+		if (userService.resetPassword(userDto)==1) {
+			customRes.setMessage("Reset Password Sucessfully........");
+			customRes.setStatusCode(100);
+			return new ResponseEntity<CustomResponse>(customRes, HttpStatus.OK);
+
+		} else {
+			customRes.setMessage("Password Not Updated.......");
+			return new ResponseEntity<CustomResponse>(customRes, HttpStatus.BAD_REQUEST);
+		}
+	}
+	//resetpassword link
+	@RequestMapping(value = "/resetpasswordlink/{jwtToken:.+}", method = RequestMethod.GET)
+	public void resetPasswordLink(@PathVariable("jwtToken") String jwtToken, HttpServletResponse response,
+			HttpServletRequest request) throws IOException {
+
+		logger.info("In side reset password link");
+		System.out.print("url for front end-->" + request.getHeader("origin"));
+		System.out.print("your fronENd url "+frontEndHost);
+		response.sendRedirect(frontEndHost+"/resetpassword?jwtToken=" + jwtToken);
+
 	}
 	
 	//loggeduser

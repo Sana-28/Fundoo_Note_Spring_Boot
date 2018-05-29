@@ -35,6 +35,7 @@ hs_err_pid*
 /.recommenders/
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
@@ -52,3 +53,5 @@ hs_err_pid*
 #Avoid property file
 **/application.properties
 >>>>>>> cab15fd899c58b94bca5aab4dd9a0a17fba0a01c
+=======
+>>>>>>> 16a8cfadec8028bb4b1f30ee62442ca93db4c48c

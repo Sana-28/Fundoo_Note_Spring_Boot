@@ -57,7 +57,7 @@ public class LabelController {
 		}
 	}
 
-	@RequestMapping(value = "/updateLabel", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/updatelabel", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> updateLabel(@RequestBody Label label, HttpServletRequest request,
 			@RequestHeader("Authorization") String token) {
 		int userId = TokenUtils.verifyToken(token);

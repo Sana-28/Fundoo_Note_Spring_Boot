@@ -42,10 +42,10 @@ public class NoteController
       return new ResponseEntity<Note>(note, HttpStatus.OK);
    }
 
-   @RequestMapping(value = "deletenote/{id}", method = RequestMethod.DELETE)
-   ResponseEntity<String> deleteNote(@PathVariable int id)
+   @RequestMapping(value = "deletenote/{noteId}", method = RequestMethod.DELETE)
+   ResponseEntity<String> deleteNote(@PathVariable int noteId)
    {
-      noteService.deleteNote(id);
+      noteService.deleteNote(noteId);
       return new ResponseEntity<String>("Note deleted succesfully", HttpStatus.OK);
    }
 

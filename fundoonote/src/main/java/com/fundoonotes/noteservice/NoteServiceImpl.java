@@ -61,8 +61,7 @@ public class NoteServiceImpl implements INoteService
    public void saveImage(MultipartFile fileUpload, int noteId) throws IOException
    {
       Note note = noteRepository.getOne(noteId);
-      note.setnoteImage(fileUpload.getBytes());
-      note.setnoteImage(fileUpload.getBytes());
+      note.setNoteImage(fileUpload.getBytes());
       System.out.println("Checkk front end image"+fileUpload.getBytes());
       noteRepository.save(note);
    }
@@ -77,7 +76,7 @@ public class NoteServiceImpl implements INoteService
    public void deleteImage(int noteId)
    {
       Note note = noteRepository.getOne(noteId);
-      note.setnoteImage(null);
+      note.setNoteImage(null);
       noteRepository.save(note);
    }
 }

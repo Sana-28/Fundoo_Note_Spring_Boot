@@ -18,55 +18,58 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fundoonotes.utility.TokenUtils;
 
 @RestController
-public class LabelController {
+public class LabelController
+{
 
-	@Autowired
-	ILabelService labelService;
-	
-	@RequestMapping(value="createlabel", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Label> createLabel(@RequestBody Label label, HttpServletRequest request,
-			@RequestHeader("Authorization") String token){
+   @Autowired
+   ILabelService labelService;
 
-		int userId = TokenUtils.verifyToken(token);
-		labelService.createLabel(label, userId);
-		return new ResponseEntity<Label>(label, HttpStatus.OK);
+   @RequestMapping(value = "createlabel", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+   public ResponseEntity<Label> createLabel(@RequestBody Label label, HttpServletRequest request,
+         @RequestHeader("Authorization") String token)
+   {
 
-	}
-	
-	@RequestMapping(value="getlabels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getLabels(HttpServletRequest request,
-			@RequestHeader("Authorization") String token){
-	
-		System.out.println("In side get label controller...");
-		int userId = TokenUtils.verifyToken(token);
-		
-		List<LabelResDto> label= labelService.getLabels(userId);
-		
-		return new ResponseEntity<List>(label, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="deletelabel/{labelId}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteLabel(@PathVariable("labelId") int labelId,HttpServletRequest request){
-		
-		try {
-			labelService.deleteLabel(labelId);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-		}
-	}
+      int userId = TokenUtils.verifyToken(token);
+      labelService.createLabel(label, userId);
+      return new ResponseEntity<Label>(label, HttpStatus.OK);
 
-	@RequestMapping(value = "/updatelabel", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> updateLabel(@RequestBody Label label, HttpServletRequest request,
-			@RequestHeader("Authorization") String token) {
-		int userId = TokenUtils.verifyToken(token);
-		try {
-			labelService.updateLabel(label, userId);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-		}
-	}
+   }
+
+   @RequestMapping(value = "getlabels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+   public ResponseEntity<?> getLabels(HttpServletRequest request, @RequestHeader("Authorization") String token)
+   {
+
+      System.out.println("In side get label controller...");
+      int userId = TokenUtils.verifyToken(token);
+
+      List<LabelResDto> label = labelService.getLabels(userId);
+
+      return new ResponseEntity<List>(label, HttpStatus.OK);
+   }
+
+   @RequestMapping(value = "deletelabel/{labelId}", method = RequestMethod.DELETE)
+   public ResponseEntity<?> deleteLabel(@PathVariable("labelId") int labelId, HttpServletRequest request)
+   {
+
+      try {
+         labelService.deleteLabel(labelId);
+         return new ResponseEntity<Void>(HttpStatus.OK);
+      } catch (Exception e) {
+         e.printStackTrace();
+         return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+      }
+   }
+
+   @RequestMapping(value = "/updatelabel", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+   public ResponseEntity<Void> updateLabel(@RequestBody Label label, HttpServletRequest request,
+         @RequestHeader("Authorization") String token)
+   {
+      int userId = TokenUtils.verifyToken(token);
+      try {
+         labelService.updateLabel(label, userId);
+         return new ResponseEntity<Void>(HttpStatus.OK);
+      } catch (Exception e) {
+         return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+      }
+   }
 }
-

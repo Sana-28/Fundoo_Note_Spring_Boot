@@ -43,6 +43,9 @@ public class UserController
 
    @Value("${frontEndHost}")
    private String frontEndHost;
+   
+   @Value("${frontEndReset}")
+   private String frontEndReset;
 
    // register
    @RequestMapping(value = "register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -170,9 +173,9 @@ public class UserController
 
       logger.info("In side reset password link");
       System.out.print("url for front end-->" + request.getHeader("origin"));
-      System.out.print("your fronENd url " + frontEndHost);
+      System.out.print("your fronENd url " + frontEndHost + "\n");
+      //response.sendRedirect(frontEndReset+ jwtToken);
       response.sendRedirect(frontEndHost + "/resetpassword?jwtToken=" + jwtToken);
-
    }
 
    // loggeduser

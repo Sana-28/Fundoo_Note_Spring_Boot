@@ -20,117 +20,122 @@ import com.fundoonotes.userservice.User;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Note {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int noteId;
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private int noteId;
 
-	@Column
-	private String title;
+   @Column
+   private String title;
 
-	@Column
-	private String description;
+   @Column
+   private String description;
 
-	@Column
-	private Boolean inTrash = false;
+   @Column
+   private Boolean inTrash = false;
 
-	@Column
-	private Boolean isArchive = false;
+   @Column
+   private Boolean isArchive = false;
 
-	@Column
-	private Boolean isPin = false;
+   @Column
+   private Boolean isPin = false;
 
-	@Column
-	private Date reminder;
-	
-	@Column
-	private String color;
-	
-	@Lob
-	@Column
-	private byte[] noteImage;
+   @Column
+   private Date reminder;
 
-	@ManyToOne
-	@JoinColumn(name = "userId")
-	private User user;
+   @Column
+   private String color;
 
-	public int getNoteId() {
-		return noteId;
-	}
+   @Lob
+   @Column
+   private byte[] noteImage;
 
-	public void setNoteId(int noteId) {
-		this.noteId = noteId;
-	}
+   @ManyToOne
+   @JoinColumn(name = "userId")
+   private User user;
 
-	public String getTitle() {
-		return title;
-	}
+   public int getNoteId() {
+      return noteId;
+   }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+   public void setNoteId(int noteId) {
+      this.noteId = noteId;
+   }
 
-	public String getDescription() {
-		return description;
-	}
+   public String getTitle() {
+      return title;
+   }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+   public void setTitle(String title) {
+      this.title = title;
+   }
 
-	public Boolean getInTrash() {
-		return inTrash;
-	}
+   public String getDescription() {
+      return description;
+   }
 
-	public void setInTrash(Boolean inTrash) {
-		this.inTrash = inTrash;
-	}
+   public void setDescription(String description) {
+      this.description = description;
+   }
 
-	public Boolean getIsArchive() {
-		return isArchive;
-	}
+   public Boolean getInTrash() {
+      return inTrash;
+   }
 
-	public void setIsArchive(Boolean isArchive) {
-		this.isArchive = isArchive;
-	}
+   public void setInTrash(Boolean inTrash) {
+      this.inTrash = inTrash;
+   }
 
-	public Boolean getIsPin() {
-		return isPin;
-	}
+   public Boolean getIsArchive() {
+      return isArchive;
+   }
 
-	public void setIsPin(Boolean isPin) {
-		this.isPin = isPin;
-	}
-	
+   public void setIsArchive(Boolean isArchive) {
+      this.isArchive = isArchive;
+   }
 
-	public Date getReminder() {
-		return reminder;
-	}
+   public Boolean getIsPin() {
+      return isPin;
+   }
 
-	public void setReminder(Date reminder) {
-		this.reminder = reminder;
-	}
+   public void setIsPin(Boolean isPin) {
+      this.isPin = isPin;
+   }
 
-	public byte[] getnoteImage() {
-		return noteImage;
-	}
 
-	public void setnoteImage(byte[] image) {
-		this.noteImage = noteImage;
-	}
+   public Date getReminder() {
+      return reminder;
+   }
 
-	public User getUser() {
-		return user;
-	}
+   public void setReminder(Date reminder) {
+      this.reminder = reminder;
+   }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
 
-	public String getColor() {
-		return color;
-	}
+   public User getUser() {
+      return user;
+   }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
-	}
+   public void setUser(User user) {
+      this.user = user;
+   }
+
+   public String getColor() {
+      return color;
+   }
+
+   public void setColor(String color) {
+      this.color = color;
+   }
+
+   public byte[] getNoteImage()
+   {
+      return noteImage;
+   }
+
+   public void setNoteImage(byte[] noteImage)
+   {
+      this.noteImage = noteImage;
+   }
+
+
+}

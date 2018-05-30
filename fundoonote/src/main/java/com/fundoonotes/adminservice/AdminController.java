@@ -21,7 +21,7 @@ public class AdminController {
     @Autowired
 	AdminService adminService;
 	
-		@RequestMapping(value = "/admin/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value = "/admin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<?> login(@RequestBody UserDto userDto, HttpServletResponse response) {
 
 			CustomResponse customRes = new CustomResponse();

@@ -2,8 +2,10 @@
 This project was generated with Spring Boot Framework 2.0.2. It contains Controllers and Services related to User and Notes.
 
 ## User
+Its contains registration,login,forgot password and reset password API's
 
 ## Note
+It contains all the notes related API's, i.e. Note, Reminder, Trash, Archive, Pin, Label
 
 ## Development server
 

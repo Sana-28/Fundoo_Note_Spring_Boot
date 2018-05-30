@@ -9,11 +9,11 @@ import org.springframework.jms.annotation.EnableJms;
 
 @SpringBootApplication
 @EnableJms
-@EnableAutoConfiguration(exclude = {
-	    SecurityAutoConfiguration.class})
-public class FundoonoteApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(FundoonoteApplication.class, args);
-	}
+@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
+public class FundoonoteApplication
+{
+   public static void main(String[] args)
+   {
+      SpringApplication.run(FundoonoteApplication.class, args);
+   }
 }

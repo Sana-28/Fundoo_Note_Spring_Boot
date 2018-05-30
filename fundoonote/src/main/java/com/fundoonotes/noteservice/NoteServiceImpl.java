@@ -11,69 +11,73 @@ import com.fundoonotes.userservice.User;
 import com.fundoonotes.userservice.UserServiceImpl;
 
 @Service
-public class NoteServiceImpl implements INoteService {
+public class NoteServiceImpl implements INoteService
+{
 
-	@Autowired
-	private UserServiceImpl userService;
-	
-	@Autowired
-	NoteRepository noteRepository;
-	
-	@Override
-	public int createNote(Note note, int id) {
-		
-		User user = userService.getUserById(id);
-		note.setUser(user);
-		noteRepository.save(note);
-		return 0;
-	}
+   @Autowired
+   private UserServiceImpl userService;
 
-	@Override
-	public int updateNote(Note note, int userId) {
-		
-		User user = userService.getUserById(userId);
-		note.setUser(user);
-		noteRepository.save(note);
-		return 0;
-	}
+   @Autowired
+   NoteRepository noteRepository;
 
-	@Override
-	public void deleteNote(int id) {
-		
-	noteRepository.deleteById(id);	
-	
-	}
-	@Override
-	public List<NoteResDto> getNotes(int id) {
-	
-		User user = userService.getUserById(id);
-		List<Note> notes = noteRepository.findNotesByUserId(user);
-		 List<NoteResDto> list = new ArrayList<>();
-		for(Note note :notes) {
-			NoteResDto obj = new NoteResDto(note);
-			list.add(obj);
-		}		
-		return list;
-	}
+   @Override
+   public int createNote(Note note, int id)
+   {
+      User user = userService.getUserById(id);
+      note.setUser(user);
+      noteRepository.save(note);
+      return 0;
+   }
 
-	@Override
-	public void saveImage(MultipartFile fileUpload, int noteId) throws IOException {	
-		Note note = noteRepository.getOne(noteId);
-		note.setnoteImage(fileUpload.getBytes());
-		noteRepository.save(note);
-	}
+   @Override
+   public int updateNote(Note note, int userId)
+   {
+      User user = userService.getUserById(userId);
+      note.setUser(user);
+      noteRepository.save(note);
+      return 0;
+   }
 
-	@Override
-	public Note getNoteByNoteId(int id) {
-		
-		 return noteRepository.getOne(id);
-	}
+   @Override
+   public void deleteNote(int id)
+   {
+      noteRepository.deleteById(id);
+   }
 
-	@Override
-	public void deleteImage(int noteId) {	
-		Note note = noteRepository.getOne(noteId);
-		note.setnoteImage(null);
-		noteRepository.save(note);
-	}
+   @Override
+   public List<NoteResDto> getNotes(int id)
+   {
+      User user = userService.getUserById(id);
+      List<Note> notes = noteRepository.findNotesByUserId(user);
+      List<NoteResDto> list = new ArrayList<>();
+      for (Note note : notes) {
+         NoteResDto obj = new NoteResDto(note);
+         list.add(obj);
+      }
+      return list;
+   }
 
+   @Override
+   public void saveImage(MultipartFile fileUpload, int noteId) throws IOException
+   {
+      Note note = noteRepository.getOne(noteId);
+      note.setnoteImage(fileUpload.getBytes());
+      note.setnoteImage(fileUpload.getBytes());
+      System.out.println("Checkk front end image"+fileUpload.getBytes());
+      noteRepository.save(note);
+   }
+
+   @Override
+   public Note getNoteByNoteId(int id)
+   {
+      return noteRepository.getOne(id);
+   }
+
+   @Override
+   public void deleteImage(int noteId)
+   {
+      Note note = noteRepository.getOne(noteId);
+      note.setnoteImage(null);
+      noteRepository.save(note);
+   }
 }

@@ -1,26 +1,20 @@
 package com.fundoonotes.searchService;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-
-//@Document(indexName="search",type="notes")
-
-
 public class Note {
-	
-	@Id
+
+	// @Id
 	private String id;
-	@Field
+	// @Field
 	private String title;
-	@Field
+	// @Field
 	private String description;
 
 	public Note() {
-		
+
 	}
+
 	public Note(String id, String title, String description) {
-		
+
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -49,10 +43,10 @@ public class Note {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	@Override
 	public String toString() {
 		return "Note [id=" + id + ", title=" + title + ", description=" + description + "]";
 	}
-
 
 }

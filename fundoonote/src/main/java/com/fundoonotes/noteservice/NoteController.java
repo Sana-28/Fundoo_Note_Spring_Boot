@@ -57,7 +57,7 @@ public class NoteController
       return new ResponseEntity<List>(note, HttpStatus.OK);
    }
 
-   @RequestMapping(value = "uploadNoteImage", method = RequestMethod.POST)
+   @RequestMapping(value = "uploadnoteimage", method = RequestMethod.POST)
    public ResponseEntity<String> uploadImage(HttpServletRequest request,
          @RequestParam("image") MultipartFile fileUpload, @RequestParam int noteId) throws Exception
    {

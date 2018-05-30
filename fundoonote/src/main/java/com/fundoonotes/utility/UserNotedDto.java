@@ -13,18 +13,8 @@ public class UserNotedDto implements Serializable {
 	private String userName;
 
 	private byte[] userImage;
-
-	public byte[] getUserImage() {
-		return userImage;
-	}
-
-	public void setUserImage(byte[] userImage) {
-		this.userImage = userImage;
-	}
-
-
-
-	private boolean isActive;
+	
+    private boolean isActive;
 
 	private long noteCount;
 
@@ -103,4 +93,12 @@ public class UserNotedDto implements Serializable {
 	public void setTextNoteCount(long textNoteCount) {
 		this.textNoteCount = textNoteCount;
 	}
+	public byte[] getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(byte[] userImage) {
+		this.userImage = userImage;
+	}
+
 }

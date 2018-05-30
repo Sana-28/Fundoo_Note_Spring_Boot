@@ -1,10 +1,13 @@
 package com.fundoonotes.userservice;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialException;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fundoonotes.exception.UnAuthorizedAccessUser;
 import com.fundoonotes.utility.CustomResponse;
 import com.fundoonotes.utility.RegisterErrors;
@@ -197,5 +202,29 @@ public class UserController
       System.out.println(userId);
       User user = userService.getUserById(userId);
       return new ResponseEntity<User>(user, HttpStatus.OK);
+ 
+   }
+   //upload a profile pic
+   @RequestMapping(value = "/uploadprofilepic", method = RequestMethod.PUT)
+   public ResponseEntity<CustomResponse> uploadProfileImage(@RequestParam("file") MultipartFile uploadProfileImage,
+         HttpServletRequest request) throws IOException, SerialException, SQLException
+   {
+	   CustomResponse customRes = new CustomResponse();
+	   int userId = TokenUtils.verifyToken(request.getHeader("Authorization"));
+      System.out.println("Check image->>" + uploadProfileImage.getOriginalFilename());
+
+      if (userId == 0) {
+     
+    	  customRes.setMessage("Error while uploading your image");
+    	  customRes.setStatusCode(-1);
+    	  return new ResponseEntity<CustomResponse>(customRes, HttpStatus.CONFLICT);
+    	  
+      } else {
+         userService.uploadImage(uploadProfileImage, userId);
+         customRes.setMessage("your profile pic uploaded successfully");
+   	     customRes.setStatusCode(1);
+         return new ResponseEntity<CustomResponse>(customRes, HttpStatus.ACCEPTED);
+      }
+
    }
 }

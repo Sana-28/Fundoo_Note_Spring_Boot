@@ -110,14 +110,7 @@ public class Note {
 		this.reminder = reminder;
 	}
 
-	public byte[] getnoteImage() {
-		return noteImage;
-	}
-
-	public void setnoteImage(byte[] image) {
-		this.noteImage = noteImage;
-	}
-
+	
 	public User getUser() {
 		return user;
 	}
@@ -133,4 +126,14 @@ public class Note {
 	public void setColor(String color) {
 		this.color = color;
 	}
+
+	public byte[] getNoteImage() {
+		return noteImage;
+	}
+
+	public void setNoteImage(byte[] noteImage) {
+		this.noteImage = noteImage;
+	}
+	
+	
 	}

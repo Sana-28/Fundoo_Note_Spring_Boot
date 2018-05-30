@@ -1,13 +1,21 @@
 package com.fundoonotes.userservice;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mysql.jdbc.Blob;
 
 @Entity
 @DynamicUpdate(value=true)
@@ -27,8 +35,17 @@ private static final long serialVersionUID = 1L;
 	private boolean isActive;
 	private String randomId;
 	private String role;
+	 @JsonIgnore
+		@Lob
+		@Column
+		private byte[] userProfilePic;
 	
 	
+	
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public User() {
 
 	}
@@ -87,5 +104,10 @@ private static final long serialVersionUID = 1L;
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+	public byte[] getUserProfilePic() {
+		return userProfilePic;
+	}
+	public void setUserProfilePic(byte[] userProfilePic) {
+		this.userProfilePic = userProfilePic;
+	}
 }

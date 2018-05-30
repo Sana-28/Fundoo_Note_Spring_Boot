@@ -21,7 +21,7 @@ public class NoteResDto {
 	
 	private String color;
 	
-	private byte[]image;
+	private byte[] noteImage;
 
 	public NoteResDto(Note note) {
 		this.noteId = note.getNoteId();
@@ -31,7 +31,7 @@ public class NoteResDto {
 		this.isPin=note.getIsPin();
 		this.isArchive=note.getIsArchive();
 		this.reminder=note.getReminder();
-		this.image = note.getnoteImage();
+		this.noteImage = note.getNoteImage();
 		this.color=note.getColor();
 	}
 
@@ -100,12 +100,13 @@ public class NoteResDto {
 		this.color = color;
 	}
 
-	public byte[] getImage() {
-		return image;
-	}
+   public byte[] getNoteImage()
+   {
+      return noteImage;
+   }
 
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
-	
+   public void setNoteImage(byte[] noteImage)
+   {
+      this.noteImage = noteImage;
+   }
 }

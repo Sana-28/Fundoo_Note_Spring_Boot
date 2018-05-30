@@ -18,6 +18,9 @@ public class LabelServiceImpl implements ILabelService {
 	@Autowired
 	private LabelRepository labelRepository;
 	
+	@Autowired
+	private NoteRepository noteRepository;
+	
 	@Override
 	public void createLabel(Label label, int userId) {
 		
@@ -54,6 +57,28 @@ public class LabelServiceImpl implements ILabelService {
 		User user = userService.getUserById(userId);
 		label.setUser(user);
 		labelRepository.save(label);		
+	}
+
+	@Override
+	public void addLabelOnNote(int noteId, int labelId) {
+		Note note = noteRepository.getOne(noteId);
+		Label label = labelRepository.getOne(labelId);
+		note.getLabels().add(label);
+		noteRepository.save(note);
+				
+	}
+
+	@Override
+	public void deleteLabelFromNote(int noteId, int labelId) {
+		
+		Note note = noteRepository.getOne(noteId);
+		for (Label label : note.getLabels()) {
+				if(label.getLabeld() == labelId) {
+					note.getLabels().remove(label);
+					break;
+				}
+		}
+				noteRepository.save(note);
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.fundoonotes.noteservice;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -53,6 +57,12 @@ public class Note {
 	@JoinColumn(name="userId")
 	private User user;
 
+	@ManyToMany
+	@JoinTable(name ="NoteLabel", joinColumns=@JoinColumn(name="noteId"), inverseJoinColumns=@JoinColumn(name="labelId"))
+	private Set<Label> labels;
+	
+	@OneToMany(mappedBy="note")
+	private Set<Collaborator> collaborators;
 
 	public int getId() {
 		return id;
@@ -134,6 +144,21 @@ public class Note {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
+
+	public Set<Label> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(Set<Label> labels) {
+		this.labels = labels;
+	}
+
+	public Set<Collaborator> getCollaborators() {
+		return collaborators;
+	}
+
+	public void setCollaborators(Set<Collaborator> collaborators) {
+		this.collaborators = collaborators;
+	}
 	
 }

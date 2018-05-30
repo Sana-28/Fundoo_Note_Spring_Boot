@@ -8,4 +8,6 @@ public interface ILabelService {
 	void deleteLabel(int labelId);
 	List<LabelResDto> getLabels(int userId);
 	void updateLabel(Label label, int userId);
+	void addLabelOnNote(int noteId, int labelId);
+	void deleteLabelFromNote(int noteId, int labelId);
 }

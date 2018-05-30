@@ -26,11 +26,11 @@ public class NoteController {
 	INoteService noteService;
 
 	@RequestMapping(value="createnote", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	ResponseEntity<Note> createNote(@RequestBody Note note, HttpServletRequest request){
+	ResponseEntity<?> createNote(@RequestBody Note note, HttpServletRequest request){
 		
 		int id = TokenUtils.verifyToken(request.getHeader("Authorization"));
 		noteService.createNote(note, id);
-		return new ResponseEntity<Note>(note ,HttpStatus.OK);	
+		return new ResponseEntity<String>("Note created..." ,HttpStatus.OK);	
 	}
 
 	@RequestMapping(value="updatenote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)

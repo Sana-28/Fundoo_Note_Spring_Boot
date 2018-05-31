@@ -3,13 +3,18 @@
  */
 package com.fundoonotes.searchService;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -42,8 +47,6 @@ public class SearchRepository {
 	@Autowired
 	private RestHighLevelClient restHighLevelClient;
 
-	
-	
 	/*
 	 * ObjectMapper provides functionality for reading and writing JSON, either to
 	 * and from basic POJOs (Plain Old Java Objects), or to and from a
@@ -54,23 +57,18 @@ public class SearchRepository {
 
 	public Note insertNote(Note note) throws JsonProcessingException {
 
-		
-		
 		/*
 		 * writeValueAsString() :- Method that can be used to serialize any Java value
 		 * as a String
 		 */
 		String json = objectmapper.writeValueAsString(note);
 
-		
-		
 		/*
 		 * Index request to index a typed JSON document into a specific index and make
 		 * it searchable
 		 */
-		IndexRequest indexRequest = new IndexRequest("search", "notes", note.getId()).source(json, XContentType.JSON);
+		IndexRequest indexRequest = new IndexRequest("INDEX", "Type", note.getId()).source(json, XContentType.JSON);
 
-		
 		try {
 
 			/* IndexResponse :- response of an index operation */
@@ -81,17 +79,90 @@ public class SearchRepository {
 		}
 		return note;
 	}
+	
+	/*----------------------------------------------------------------------------------------------------*/
 
 	public Map<String, Object> getNote(String id) {
 
+		/**
+		 * Constructs a new get request against the specified index with the type and
+		 * id.
+		 *
+		 * @param index:-
+		 *            The index to get the document from
+		 * @param type:-
+		 *            The type of the document
+		 * @param id:-
+		 *            The id of the document
+		 */
+
+		/*
+		 * GetRequest :- A request to get a document (its source) from an index based on
+		 * its type (optional) and id. Best created using
+		 * org.elasticsearch.client.Requests.getRequest(String).
+		 * 
+		 * The operation requires the index(), type(String) and id(String) to be set.
+		 */
+
 		GetRequest getRequest = new GetRequest(INDEX, Type, id);
+
+		/* GetResponse :- The response of a get action. */
 		GetResponse getResponse = null;
+		System.out.println("*******" + INDEX);
 		try {
+
 			getResponse = restHighLevelClient.get(getRequest);
+			System.out.println("repository execution : " + id);
+
 		} catch (java.io.IOException e) {
 			e.getLocalizedMessage();
 		}
 		Map<String, Object> sourceAsMap = getResponse.getSourceAsMap();
 		return sourceAsMap;
+	}
+	/*----------------------------------------------------------------------------------------------------*/
+
+	public Map<String, Object> updateNoteById(String id, Note note) {
+
+		/*
+		 * fetchSource(true/false) :- Indicates whether the response should contain the
+		 * updated _source.
+		 */
+		UpdateRequest updateRequest = new UpdateRequest(INDEX, Type, id).fetchSource(true); // Fetch Object after its
+																							// update
+
+		Map<String, Object> error = new HashMap<>();
+		error.put("Error", "Unable to update book");
+		try {
+			/*
+			 * writeValueAsString() :- Method that can be used to serialize any Java value
+			 * as a String.
+			 */
+			String bookJson = objectmapper.writeValueAsString(note);
+			updateRequest.doc(bookJson, XContentType.JSON);
+			UpdateResponse updateResponse = restHighLevelClient.update(updateRequest);
+			Map<String, Object> sourceAsMap = updateResponse.getGetResult().sourceAsMap();
+			return sourceAsMap;
+		} catch (JsonProcessingException e) {
+			e.getMessage();
+		} catch (java.io.IOException e) {
+			e.getLocalizedMessage();
+		}
+		return error;
+	}
+
+	/*----------------------------------------------------------------------------------------------------*/
+	public void deleteNoteById(String id) {
+
+		/*
+		 * DeleteRequest :- A request to delete a document from an index based on its
+		 * type and id.
+		 */
+		DeleteRequest deleteRequest = new DeleteRequest(INDEX, Type, id);
+		try {
+			DeleteResponse deleteResponse = restHighLevelClient.delete(deleteRequest);
+		} catch (java.io.IOException e) {
+			e.getLocalizedMessage();
+		}
 	}
 }

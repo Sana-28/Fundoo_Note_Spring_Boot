@@ -1,5 +1,7 @@
 package com.fundoonotes.searchService;
 
+
+//@Document(indexName = "mkyong", type = "books")
 public class Note {
 
 	// @Id

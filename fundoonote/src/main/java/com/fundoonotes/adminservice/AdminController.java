@@ -1,42 +1,26 @@
 package com.fundoonotes.adminservice;
-import javax.servlet.http.HttpServletResponse;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fundoonotes.exception.UnAuthorizedAccessUser;
-import com.fundoonotes.userservice.UserDto;
-import com.fundoonotes.utility.CustomResponse;
-
-
+import com.fundoonotes.utility.UserNotedDto;
 
 @RestController
-public class AdminController {
-//login
-    @Autowired
-	AdminService adminService;
-	
-		@RequestMapping(value = "/admin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<?> login(@RequestBody UserDto userDto, HttpServletResponse response) {
+public class AdminController
+{
 
-			CustomResponse customRes = new CustomResponse();
-			String token = adminService.adminLogin(userDto);
-			System.out.println("this is your tooekn:"+token);
-			if (token != null) {
-				response.setHeader("Authorization", token);
-				customRes.setMessage("admin login successfully");
-				customRes.setStatusCode(100);
+   @Autowired
+   IAdminService adminService;
 
-				return new ResponseEntity<CustomResponse>(customRes, HttpStatus.OK);
-			} else {
-
-				throw new UnAuthorizedAccessUser();
-			}
-
-		}
+   @RequestMapping(value = "/admin/getusernotecount", method = RequestMethod.GET)
+   public ResponseEntity<List<UserNotedDto>> getUserNoteCount()
+   {
+      return new ResponseEntity<>(adminService.getUserNoteCount(), HttpStatus.OK);
+   }
 }

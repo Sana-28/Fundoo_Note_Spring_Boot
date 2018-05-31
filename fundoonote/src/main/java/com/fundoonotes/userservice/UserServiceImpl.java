@@ -1,6 +1,8 @@
 package com.fundoonotes.userservice;
 
+import java.io.IOException;
 import java.util.UUID;
+
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -15,10 +17,13 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fundoonotes.exception.EmailAlreadyExistsException;
+import com.fundoonotes.noteservice.Note;
 import com.fundoonotes.utility.Email;
 import com.fundoonotes.utility.TokenUtils;
+import com.mysql.jdbc.Blob;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -167,4 +172,20 @@ public class UserServiceImpl implements UserService {
 		return 1;
 
 	}
+	@Transactional
+	@Override
+	public void uploadImage(MultipartFile uploadProfileImage, int userId) {
+		
+		User user =userDao.findById(userId).get();
+	      user.setUserId(userId);
+	      try {
+			user.setUserProfilePic(uploadProfileImage.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      
+	      userDao.save(user);
+	}
+	
 }

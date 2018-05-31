@@ -38,3 +38,6 @@ hs_err_pid*
 #Avoid property file
 **/application.properties
 
+Servers2/
+
+RemoteSystemsTempFiles

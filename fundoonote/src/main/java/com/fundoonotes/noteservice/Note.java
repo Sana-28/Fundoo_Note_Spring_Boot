@@ -136,6 +136,4 @@ public class Note {
    {
       this.noteImage = noteImage;
    }
-
-
 }

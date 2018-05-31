@@ -62,7 +62,7 @@ public class NoteServiceImpl implements INoteService
    {
       Note note = noteRepository.getOne(noteId);
       note.setNoteImage(fileUpload.getBytes());
-      System.out.println("Checkk front end image"+fileUpload.getBytes());
+      System.out.println("Checkk front end image" + fileUpload.getBytes());
       noteRepository.save(note);
    }
 

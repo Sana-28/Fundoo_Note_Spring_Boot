@@ -2,8 +2,8 @@ package com.fundoonotes.noteservice;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +26,7 @@ public class NoteController
    @Autowired
    INoteService noteService;
 
-   @RequestMapping(value = "createnote", method = RequestMethod.PUT)
+   @RequestMapping(value = "createnote", method = RequestMethod.POST)
    ResponseEntity<Note> createNote(@RequestBody Note note, HttpServletRequest request)
    {
       int id = TokenUtils.verifyToken(request.getHeader("Authorization"));
@@ -59,10 +59,10 @@ public class NoteController
 
    @RequestMapping(value = "uploadnoteimage", method = RequestMethod.POST)
    public ResponseEntity<String> uploadImage(HttpServletRequest request,
-         @RequestParam("image") MultipartFile fileUpload, @RequestParam int noteId) throws Exception
+         @RequestParam("file") MultipartFile fileUpload, @RequestParam int noteId) throws Exception
    {
       System.out.println("file name -- " + fileUpload.getOriginalFilename());
-      noteService.saveImage(fileUpload, noteId);
+      noteService.saveImage(fileUpload,noteId);
       return new ResponseEntity<String>("ImageUploaded", HttpStatus.OK);
    }
 

@@ -50,7 +50,6 @@ public class LabelController
    @RequestMapping(value = "deletelabel/{labelId}", method = RequestMethod.DELETE)
    public ResponseEntity<?> deleteLabel(@PathVariable("labelId") int labelId, HttpServletRequest request)
    {
-
       try {
          labelService.deleteLabel(labelId);
          return new ResponseEntity<Void>(HttpStatus.OK);

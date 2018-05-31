@@ -100,7 +100,7 @@ public class NoteResDto {
 		this.color = color;
 	}
 
-   public byte[] getNoteImage()
+	public byte[] getNoteImage()
    {
       return noteImage;
    }
@@ -109,4 +109,5 @@ public class NoteResDto {
    {
       this.noteImage = noteImage;
    }
+
 }

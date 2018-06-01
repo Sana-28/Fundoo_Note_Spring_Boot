@@ -3,17 +3,14 @@
  */
 package com.fundoonotes.searchService;
 
-import java.util.Map;
-
-import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,14 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class SearchController {
+	 /*@Autowired
+	    private ElasticsearchOperations elasticsearchOperations;*/
 
-	@Autowired
-	RestHighLevelClient client;
+	 /*@Autowired
+	    private ElasticsearchTemplate elasticsearchTemplate;*/
+	/*@Autowired
+	RestHighLevelClient client;*/
 
 	@Autowired
 	ISearchService searchService;
 
-	@PostMapping("/save")
+	/*@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Note note) {
 		try {
 			searchService.saveInfo(note);
@@ -60,4 +61,27 @@ public class SearchController {
 	public void deleteNoteById(@PathVariable String id) {
 		searchService.deleteNoteById(id);
 	}
+	
+	*/
+	
+	@PostMapping("/note/add")
+	public ResponseEntity<Note> addNote(@RequestBody Note note) {
+		Note saveNote = searchService.addNote(note);
+		return new ResponseEntity<>(saveNote, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/note/{id}/delete")
+	public ResponseEntity<?> deletenote(@PathVariable("id") String id) {
+		searchService.deleteNote(id);
+		return new ResponseEntity<>("deleted...", HttpStatus.OK);
+	}
+	
+	
+	 
+	
+	/*@DeleteMapping("/movie/{id}/delete")
+    public ResponseEntity<String> deleteMovie(@PathVariable("id") Long movieId) {
+        movieService.deleteMovie(movieId);
+        return ResponseEntity.ok("Deleted");
+    }*/
 }

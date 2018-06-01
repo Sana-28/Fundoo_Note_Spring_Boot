@@ -3,19 +3,21 @@
  */
 package com.fundoonotes.searchService;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
 public class SearchServiceImpl implements ISearchService {
 
+	/*@Autowired
+	private SearchRepository searchRepository;*/
 	@Autowired
-	private SearchRepository searchRepository;
-
+	private NoteRepository noteRepository;
+	
+	/*@Autowired
+	ElasticsearchTemplate elasticsearchTemplate;*/
+/*
 	@Override	
 	public void saveInfo(Note note) throws JsonProcessingException {
 		searchRepository.insertNote(note);
@@ -39,6 +41,20 @@ public class SearchServiceImpl implements ISearchService {
 	@Override
 	public void deleteNoteById(String id) {
 		searchRepository.deleteNoteById(id);
+		
+	}*/
+	
+	
+
+	@Override
+	public Note addNote(Note note) {
+		noteRepository.save(note);
+		return null;
+	}
+
+	@Override
+	public void deleteNote(String id) {
+		noteRepository.deleteById(id);
 		
 	}
 

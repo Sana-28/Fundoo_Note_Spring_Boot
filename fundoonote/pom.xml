@@ -47,6 +47,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -58,12 +59,12 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>1.4.3.RELEASE</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>1.5.9.RELEASE</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -87,11 +88,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+
+		<!-- <dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>1.5.4</version>
+		</dependency> -->
 
 	</dependencies>
 

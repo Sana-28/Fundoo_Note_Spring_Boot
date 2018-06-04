@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +24,29 @@ public class AdminController
 
    @Autowired
    IAdminService adminService;
+   
+   @Value("${spring.boot.admin.username}")
+   private String email;
+   
+   @Value("${spring.boot.admin.password}")
+   private String password;
 
-   @RequestMapping(value = "/admin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<?> login(@RequestBody AdminDto adminDto, HttpServletResponse response)
+   @RequestMapping(value = "admin/login", method = RequestMethod.POST)
+   public ResponseEntity<?> adminLogin(@RequestBody AdminDto adminDto)
    {
 
       CustomResponse customRes = new CustomResponse();
-      adminService.login(adminDto);
-      return new ResponseEntity<CustomResponse>(customRes, HttpStatus.OK);
 
+      if (adminDto.getEmail().equals(email) && adminDto.getPassword().equals(password)) {
+         customRes.setMessage("admin login successfully");
+         customRes.setStatusCode(200);
+         return new ResponseEntity<CustomResponse>(customRes, HttpStatus.OK);
+      } else {
+
+         customRes.setMessage("Invalid username or password");
+         customRes.setStatusCode(409);
+         return new ResponseEntity<CustomResponse>(customRes, HttpStatus.CONFLICT);
+      }
    }
 
    @RequestMapping(value = "/admin/getusernotecount", method = RequestMethod.GET)

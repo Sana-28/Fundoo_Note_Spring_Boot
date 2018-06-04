@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fundoonotes.exception.RegistrationValidationException;
 import com.fundoonotes.exception.UnAuthorizedAccessUser;
 import com.fundoonotes.utility.CustomResponse;
 import com.fundoonotes.utility.RegisterErrors;
@@ -47,11 +48,7 @@ public class UserController {
 		RegisterErrors response = new RegisterErrors();
 		CustomResponse customRes = new CustomResponse();
 		if (bindingResult.hasErrors()) {
-			logger.info("This is an info log entry");
-			response.setMsg("registrtion fail");
-			response.setStatus(-200);
-
-			return new ResponseEntity<RegisterErrors>(response, HttpStatus.CONFLICT);
+			throw new RegistrationValidationException();
 		}
 
 		String url = request.getRequestURL().toString().substring(0, request.getRequestURL().lastIndexOf("/"));

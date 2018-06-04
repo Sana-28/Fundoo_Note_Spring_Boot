@@ -1,8 +1,8 @@
 package com.fundoonotes.exception;
 
-import com.fundoonotes.utility.Response;
+public class UnAuthorizedAccessUser extends RuntimeException {
 
-public class UnAuthorizedAccessUser  extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 
 	public UnAuthorizedAccessUser() {
 		super("login denied");

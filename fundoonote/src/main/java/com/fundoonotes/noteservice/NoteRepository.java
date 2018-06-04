@@ -14,4 +14,5 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
 
 	@Query("from Note where user = :user")
 	List<Note> findNotesByUserId(@Param("user") User user);
+	
 }

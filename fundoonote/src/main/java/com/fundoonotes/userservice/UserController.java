@@ -181,6 +181,7 @@ public class UserController
       System.out.print("your fronENd url " + frontEndHost + "\n");
       //response.sendRedirect(frontEndReset+ jwtToken);
       response.sendRedirect(frontEndHost + "/resetpassword?jwtToken=" + jwtToken);
+      return;
    }
 
    // loggeduser

@@ -4,101 +4,118 @@ import java.io.Serializable;
 
 import com.fundoonotes.userservice.User;
 
-public class UserNotedDto implements Serializable {
+public class UserNotedDto implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	private int userId;
+   private int userId;
 
-	private String userName;
+   private String userName;
 
-	private byte[] userImage;
-	
-    private boolean isActive;
+   private byte[] userImage;
 
-	private long noteCount;
+   private boolean isActive;
 
-	private long imageNoteCount;
+   private long noteCount;
 
-	private long textNoteCount;
+   private long imageNoteCount;
 
-	public UserNotedDto() {
-	}
+   private long textNoteCount;
 
-	public UserNotedDto(int userId, String userName, byte[] userImage, boolean isActive, long noteCount,
-			long imageNoteCount, long textNoteCount) {
-		this.userId = userId;
-		this.userName = userName;
-		this.userImage = userImage;
-		this.isActive = isActive;
-		this.noteCount = noteCount;
-		this.imageNoteCount = imageNoteCount;
-		this.textNoteCount = textNoteCount;
-	}
+   public UserNotedDto()
+   {
+   }
 
-	public UserNotedDto(User user) {
-		this.userId = user.getUserId();
-		this.userName = user.getName();
-		this.userImage = user.getUserProfilePic();
-		this.isActive = user.isActive();
-		
-	}
+   public UserNotedDto(int userId, String userName, byte[] userImage, boolean isActive, long noteCount,
+         long imageNoteCount, long textNoteCount)
+   {
+      this.userId = userId;
+      this.userName = userName;
+      this.userImage = userImage;
+      this.isActive = isActive;
+      this.noteCount = noteCount;
+      this.imageNoteCount = imageNoteCount;
+      this.textNoteCount = textNoteCount;
+   }
 
-	public int getUserId() {
-		return userId;
-	}
+   public UserNotedDto(User user)
+   {
+      this.userId = user.getUserId();
+      this.userName = user.getName();
+      this.userImage = user.getUserProfilePic();
+      this.isActive = user.isActive();
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+   }
 
-	public String getUserName() {
-		return userName;
-	}
+   public int getUserId()
+   {
+      return userId;
+   }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+   public void setUserId(int userId)
+   {
+      this.userId = userId;
+   }
 
-	
+   public String getUserName()
+   {
+      return userName;
+   }
 
-	public boolean isActive() {
-		return isActive;
-	}
+   public void setUserName(String userName)
+   {
+      this.userName = userName;
+   }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+   public boolean isActive()
+   {
+      return isActive;
+   }
 
-	public long getNoteCount() {
-		return noteCount;
-	}
+   public void setActive(boolean isActive)
+   {
+      this.isActive = isActive;
+   }
 
-	public void setNoteCount(long noteCount) {
-		this.noteCount = noteCount;
-	}
+   public long getNoteCount()
+   {
+      return noteCount;
+   }
 
-	public long getImageNoteCount() {
-		return imageNoteCount;
-	}
+   public void setNoteCount(long noteCount)
+   {
+      this.noteCount = noteCount;
+   }
 
-	public void setImageNoteCount(long imageNoteCount) {
-		this.imageNoteCount = imageNoteCount;
-	}
+   public long getImageNoteCount()
+   {
+      return imageNoteCount;
+   }
 
-	public long getTextNoteCount() {
-		return textNoteCount;
-	}
+   public void setImageNoteCount(long imageNoteCount)
+   {
+      this.imageNoteCount = imageNoteCount;
+   }
 
-	public void setTextNoteCount(long textNoteCount) {
-		this.textNoteCount = textNoteCount;
-	}
-	public byte[] getUserImage() {
-		return userImage;
-	}
+   public long getTextNoteCount()
+   {
+      return textNoteCount;
+   }
 
-	public void setUserImage(byte[] userImage) {
-		this.userImage = userImage;
-	}
+   public void setTextNoteCount(long textNoteCount)
+   {
+      this.textNoteCount = textNoteCount;
+   }
+
+   public byte[] getUserImage()
+   {
+      return userImage;
+   }
+
+   public void setUserImage(byte[] userImage)
+   {
+      this.userImage = userImage;
+   }
 
 }

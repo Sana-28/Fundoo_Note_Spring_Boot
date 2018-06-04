@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-@SuppressWarnings("deprecation")
-public class WebSecurityConfig extends WebMvcConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-
+    @Override
 	 protected void configure(HttpSecurity http) throws Exception {
 	        http
 	          .authorizeRequests()
@@ -19,7 +19,8 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 	         .antMatchers("/admin**").hasAnyRole("admin")
 	         .and().formLogin();
 	    }
-	 @Bean
+    
+	  /*@Bean
       public DataSource ds()
       {
 		 DriverManagerDataSource dbms=new DriverManagerDataSource();
@@ -29,18 +30,5 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 		 dbms.setPassword("root");
 		return dbms;
     	  
-      }
-	    protected void configure(AuthenticationManagerBuilder auth)
-	      throws Exception {
-	        auth
-	          .inMemoryAuthentication()
-	          .withUser("anil")
-	            .password("rockstar")
-	            .roles("admin");
-	          /* auth.jdbcAuthentication()
-	               .dataSource(ds())
-	               .usersByUsernameQuery("select username,password, enabled from users where username=? and role=?");*/
-	               
-	    }
-	   
+      }*/
 }

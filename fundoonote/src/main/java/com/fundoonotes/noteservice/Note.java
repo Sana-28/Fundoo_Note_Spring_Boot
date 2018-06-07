@@ -1,5 +1,6 @@
 package com.fundoonotes.noteservice;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ import com.fundoonotes.userservice.User;
 @Entity
 @Table(name="Note")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Note {
+public class Note implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)

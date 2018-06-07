@@ -1,9 +1,18 @@
 package com.fundoonotes.noteservice;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,11 +28,22 @@ public class NoteServiceImpl implements INoteService {
 	@Autowired
 	NoteRepository noteRepository;
 	
+	@Autowired
+	JmsTemplate template;
+	
 	@Override
 	public int createNote(Note note, int id) {
 		
 		User user = userService.getUserById(id);
 		note.setUser(user);
+		template.send(new MessageCreator() {
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				ObjectMessage message = session.createObjectMessage(note);
+				return message;
+			}
+		});
+
 		noteRepository.save(note);
 		return 0;
 	}

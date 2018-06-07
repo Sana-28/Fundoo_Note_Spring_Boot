@@ -79,7 +79,6 @@ public class UserController {
 
 			throw new UnAuthorizedAccessUser();
 		}
-
 	}
     //confirm registration
 	@RequestMapping(value = "/RegistrationConfirm/{randomId}", method = RequestMethod.POST)

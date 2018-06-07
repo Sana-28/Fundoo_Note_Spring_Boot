@@ -68,10 +68,11 @@ public class GlobalExceptionHandler extends RuntimeException {
 
 	}
 
-	@ExceptionHandler(UnAuthorizedAccessUser.class)
+	/*@ExceptionHandler(UnAuthorizedAccessUser.class)
 	public ResponseEntity<CustomResponse> UnathorizedAccess() {
 		response.setMessage("Unaurthorized access..");
 		response.setStatusCode(403);
 		return new ResponseEntity<CustomResponse>(response, HttpStatus.CONFLICT);
-	}
+	}*/
+	
 }

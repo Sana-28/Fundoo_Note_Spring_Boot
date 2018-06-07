@@ -32,15 +32,15 @@ public class NoteController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="createnote", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	ResponseEntity<?> createNote(@RequestBody Note note, HttpServletRequest request){
+	@RequestMapping(value="/createnote/{id}", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	ResponseEntity<?> createNote(@RequestBody Note note, HttpServletRequest request, @PathVariable int id){
 		
-		int id = TokenUtils.verifyToken(request.getHeader("Authorization"));
+		//int id = TokenUtils.verifyToken(request.getHeader("Authorization"));
 		noteService.createNote(note, id);
 		return new ResponseEntity<String>("Note created..." ,HttpStatus.OK);	
 	}
 
-	@RequestMapping(value="updatenote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/updatenote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	ResponseEntity<Note> updateNote(@RequestBody Note note,@RequestHeader("Authorization") String token){
 
 		int userId = TokenUtils.verifyToken(token);
@@ -48,13 +48,13 @@ public class NoteController {
 		return new ResponseEntity<Note>(note, HttpStatus.OK);
 	}
 
-	@RequestMapping(value="deletenote/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value="/deletenote/{id}", method = RequestMethod.DELETE)
 	ResponseEntity<String> deleteNote(@PathVariable int id){
 		noteService.deleteNote(id);
 		return new ResponseEntity<String>("Note deleted succesfully", HttpStatus.OK);
 	}
 
-	@RequestMapping(value="getnotes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getnotes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getNotes(@RequestHeader("Authorization") String token){
 
 		int id = TokenUtils.verifyToken(token);
@@ -62,7 +62,7 @@ public class NoteController {
 		return new ResponseEntity<List>(note, HttpStatus.OK);
 	}
 
-	@RequestMapping(value="uploadimage", method = RequestMethod.POST, headers= {"content-type=multipart/*"})
+	@RequestMapping(value="/uploadimage", method = RequestMethod.POST, headers= {"content-type=multipart/*"})
 	public ResponseEntity<String> uploadImage(HttpServletRequest request, @RequestParam("file") MultipartFile fileUpload, @RequestParam int noteId)
 			throws Exception {
 		System.out.println("file name -- "+fileUpload.getOriginalFilename());
@@ -70,7 +70,7 @@ public class NoteController {
 		return new ResponseEntity<String>("Image updated...", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "deleteimage/{noteId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/deleteimage/{noteId}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteImage(@PathVariable("noteId") int noteId){
 		System.out.println("noteId is.. "+noteId);
 		noteService.deleteImage(noteId);
